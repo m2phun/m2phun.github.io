@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="./lottojava.css">
+  </head>
+  <body>
+    <h3>추첨결과는?</h3>
+    <button onclick="enter()">번호뽑기</button>
+    <button onclick="restart()">다시하기</button>
+    <div>
+    <p class="red"><span id = "number0">1</span></p>
+    <p class="orange"><span id = "number1">2</span></p>
+    <p class="yellow"><span id = "number2">3</span></p>
+    <p class="yellow"><span id = "number3">4</span></p>
+    <p class="blue"><span id = "number4">5</span></p>
+    <p class="green"><span id = "number5">6</span></p>
+    </div>
+    <h3>보너스 번호</h3>
+    <p class="blue"><span id = "number6">7</span></p>
+    
+    <h3>로또 번호를 입력하세요</h3>
+    <button onclick="lottobt()" class="lotoBtMagin">입력</button>
+    <div>
+    <input type="text" id="lottoinput0">
+    <input type="text" id="lottoinput1">
+    <input type="text" id="lottoinput2">
+    <input type="text" id="lottoinput3">
+    <input type="text" id="lottoinput4">
+    <input type="text" id="lottoinput5">
+    <br>
+    </div>
+    
+    <h3>로또 구매 횟수</h3>
+
+    <input type="radio" name="radio" id="radio0" value="3" onclick="onClickRate(event)">5등
+    <input type="text" id="rep3" class="reps">rep (3개번호)
+    <br>
+    <input type="radio" name="radio" id="radio1" value="4" onclick="onClickRate(event)">4등
+    <input type="text" id="rep4" class="reps">rep (4개번호)
+    <br>
+    <input type="radio" name="radio" id="radio2" value="5" onclick="onClickRate(event)">3등
+    <input type="text" id="rep5" class="reps">rep (5개번호)
+  
+
+
+    <script>
+      let val = []; 
+      let count = 0; 
+      var chk = true;
+      let selectnum = 0;
+
+      let valsix = [];
+      let bonusnum = []; 
+
+      let lottonum = [];
+      let lottonum2 = []; 
+
+      let opening = false; 
+
+      
+      let win = 0; 
+      let rep = 0; 
+      let lottovs = 3; 
+
+
+      
+      function onClickRate(e) {
+        selectnum = Number(e.target.value);
+        console.log("select num : ", selectnum);
+
+        while(true){
+          six()
+          for(let i=0; i<6; ++i){
+            if(val[i]===lottonum[i]){
+              ++win; 
+            }
+          }
+          
+          if(win!==selectnum){
+              lottonum=[];
+              win = 0;  
+              ++rep; 
+            } else if(win===selectnum){
+                for(let j=0; j<6; ++j){
+                let lottoinput = document.querySelector(`#lottoinput${j}`)
+                lottoinput.value = lottonum[j]; 
+                console.log('lottonum',lottonum);
+                console.log('rep',rep);
+                console.log('win',win); 
+              }
+              let reps = document.querySelector(`#rep${selectnum}`); 
+              reps.value = rep;
+              lottonum = []; 
+              win = 0; 
+              rep = 0; 
+              return;    
+          }
+        }
+      }
+      
+      function random(){
+        let num = Math.floor(Math.random() * 45 + 1);
+
+          for(let i=0; i < 7; ++i){
+            if(val[i]===num){
+              return;
+            }
+          }
+          val.push(num);
+        }
+
+      function seven(){
+        while(true){
+          random()
+
+          if(val.length === 7){
+            return;
+          }
+        }
+      }
+      
+      function enter(){
+        seven();
+        alert('번호가 출력되었습니다'); 
+          
+
+          return; 
+      }
+      
+
+
+      console.log('val',val);
+      console.log('count',count); 
+
+      function restart(){
+        location.reload();
+      }
+
+      function bonus(){
+      valsix.push(val[0],val[1],val[2],val[3],val[4],val[5]);
+      bonusnum.push(val[6]); 
+      console.log('valsix',valsix); 
+      console.log('bonusnum',bonusnum); 
+    }
+
+
+      function lottonummix(){
+        
+        let num = Math.floor(Math.random() * 45 + 1);
+        
+         for(let i = 0; i < 6; ++i){
+            if(lottonum[i] === num){
+              return; 
+            }
+         }
+         
+         lottonum.push(num); 
+      }
+
+      function six(){
+        while(true){
+          lottonummix()
+
+          if(lottonum.length === 6){
+            return; 
+          }
+        }
+      }
+
+
+      function lottobt(){
+        for(let i = 0; i<val.length; ++i){
+          let numbers = document.querySelector(`#number${i}`); 
+          numbers.textContent = val[i];
+          }
+
+          return; 
+
+        }
+      
+        
+
+  
+      
+
+    
+         
+
+      
+      
+
+
+    </script>
+
+  
+  </body>
+</html>

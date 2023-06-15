@@ -1,0 +1,13 @@
+*{box-sizing: border-box;}
+p{width: 60px; height: 60px; border: solid 1px balck; border-radius: 50%; margin-right: 10px;
+  text-align: center; padding-top: 18px; color: white; font-weight: bold;
+}
+.red{background-color: red; }
+.yellow{background-color: yellow; color: black;}
+.orange{background-color: orange; color: black;}
+.blue{background-color: blue; }
+.green{background-color: green; }
+div{display: flex; flex-direction: row;}
+input{width: 35px; margin-right: 10px;}
+.lotoBtMagin{margin-top: 20px; margin-bottom: 20px;}
+.reps{width: 200px;}
