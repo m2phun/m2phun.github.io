@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+          #fourNumber{
+            color: white;
+          }
+        </style>
+    </head>
+    <body>
+        <input type="text" id="fourNumber">
+        <button onclick="enter()">번호출력 </button>
+        <br>
+        <br>
+        <input type="text" id="inputnumber">
+        <button onclick="enter2()">입력</button> 
+        <br>
+        01  <input tpye="text" id="number1">   <input type="text" id="number1result">
+        <br>
+        02  <input tpye="text" id="number2">   <input type="text" id="number2result">
+        <br>
+        03  <input tpye="text" id="number3">   <input type="text" id="number3result">
+        <br>
+        04  <input tpye="text" id="number4">   <input type="text" id="number4result">
+        <br>
+        05  <input tpye="text" id="number5">   <input type="text" id="number5result">
+        <br>
+        06  <input tpye="text" id="number6">   <input type="text" id="number6result">
+        <br>
+        07  <input tpye="text" id="number7">   <input type="text" id="number7result">
+        <br>
+        08  <input tpye="text" id="number8">   <input type="text" id="number8result">
+        <br>
+        09  <input tpye="text" id="number9">   <input type="text" id="number9result">
+        <br>
+        10  <input tpye="text" id="number10">   <input type="text" id="number10result">
+        <br>
+        <br>
+        <button onclick="restrat()">다시 시작</button>
+
+
+
+    <script> 
+    let count = 1;
+    let val = [];
+    let valinput = []; 
+    let valresult = [];
+
+    const input = document.querySelector('#inputnumber'); 
+    const onInput = (event) => {
+      valinput = event.target.value;  
+    } 
+    input.addEventListener('input',onInput); 
+    
+    console.log(valinput); 
+
+    
+
+    function random(){
+        let num = Math.floor(Math.random() * 9 + 1); 
+        
+        for(let index=0; index < val.length; ++index){
+            if(val[index]===num){
+                return; 
+            }
+        }
+        val.push(num); 
+    }
+
+    function enter(){
+        while(true){
+            random();
+
+            if(val.length===4){
+                let fourNumber = document.querySelector('#fourNumber');
+                fourNumber.value = val; 
+                alert('무작위 번호 4자리가 출력되었습니다. 문제를 풀어보세요 :)')
+
+                
+                console.log(val); 
+          
+                return; 
+            }
+        }
+    }
+
+    let strike = 0; 
+    let ball = 0; 
+
+
+    function enter2(){
+      //val이 비어있다면? 을 표기하기가 어려움 
+      //val = [] 으로했을때 오류남 
+
+      if(val.length === 0){
+        alert('번호출력을 먼저 해주세요');
+        location.reload(true);
+        return; 
+      }
+
+      for(let item of valinput){
+        valresult.push(Number(item)); 
+    }
+      if(valresult.length !== 4){
+        alert('입력창에 숫자를 정확히 입력해주세요.');
+        input.value = []; 
+        input.focus();
+        return;
+      }
+
+      for(let i = 0; i < 4; ++i){
+          for(let j = 0; j < 4; ++j){
+            if(i === j){
+              continue
+            } else if(Number(valinput[i]) === Number(valresult[j])){
+              alert('숫자가 중복되었습니다. 다시 입력해주세요.')
+              valinput = []; 
+              input.focus(); 
+              input.value = null;
+              valresult = []; 
+              return; 
+            }
+          }
+        }
+
+      for(let i = 0; i < 4; ++i){
+        if(val[i] === valresult[i]){
+          strike++; 
+        } 
+       }
+    
+
+      if (strike === 4){
+        alert(`홈런입니다. 정답은 ${val}입니다.`); 
+        valresult = []; 
+        strike = 0; 
+        ball = 0; 
+        return; 
+      }
+
+      for(let i = 0; i < 4; ++i){
+        for(let j = 0; j < 4; ++j){
+          if(i === j){
+            continue
+          } else if(val[i]===valresult[j]){
+            ++ball; 
+          }
+        }
+      }
+      console.log('strike:',strike); 
+      console.log('ball:', ball); 
+
+      console.log('val:출력값',val); 
+      console.log('valinput:',valinput); 
+      console.log('valresult:입력값',valresult); 
+    
+      let num1 = document.querySelector(`#number${count}`); 
+      num1.value = valresult; 
+      let num1result = document.querySelector(`#number${count}result`); 
+      num1result.value = (`${strike}스트라이크, ${ball}볼 입니다.`);
+      
+
+      valresult = []; 
+      input.value = null; 
+      input.focus()
+      strike = 0; 
+      ball = 0; 
+
+      ++count;
+
+      if(count>10){
+        alert(`아쉽게도 게임에 패하였습니다. 정답은 ${val}입니다`); 
+      }
+
+    }
+    //세밀한것 다듬기, 포커스 / 출력값 가리기 등등 
+
+    function restrat(){
+      location.reload(true);
+    }
+
+
+
+    
+    
+    
+  
+     
+
+    
+    </script>
+
+
+
+    </body>
+</html>
